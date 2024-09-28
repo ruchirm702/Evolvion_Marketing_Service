@@ -2,7 +2,6 @@ package dev.ruchir.evolvion_marketing_service.services.Interfaces;
 
 import dev.ruchir.evolvion_marketing_service.dto.LeadAnalyticsDTO;
 import dev.ruchir.evolvion_marketing_service.dto.LeadDTO;
-import dev.ruchir.evolvion_marketing_service.dto.LeadActivityDTO;
 import dev.ruchir.evolvion_marketing_service.model.Enums.LeadQualification;
 import dev.ruchir.evolvion_marketing_service.model.Enums.LeadSource;
 import dev.ruchir.evolvion_marketing_service.model.Enums.LeadStatus;
@@ -35,11 +34,6 @@ public interface LeadService {
     // Track the source of the lead (e.g., ads, social media, referrals)
     LeadDTO updateLeadSource(Long leadId, LeadSource source);
 
-    // Manage activities related to a lead (e.g., calls, emails, follow-ups)
-    LeadActivityDTO addLeadActivity(Long leadId, LeadActivityDTO activityDTO);
-
-    List<LeadActivityDTO> getLeadActivities(Long leadId);
-
-    // Provide analytics on lead generation and conversions
+    // Provide analytics on lead generation
     LeadAnalyticsDTO getLeadAnalytics();
 }
