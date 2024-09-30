@@ -1,7 +1,6 @@
 package dev.ruchir.evolvion_marketing_service.controller_advise;
 
-import dev.ruchir.evolvion_marketing_service.controller_advise.custom.LeadAlreadyExistsException;
-import dev.ruchir.evolvion_marketing_service.controller_advise.custom.LeadNotFoundException;
+import dev.ruchir.evolvion_marketing_service.controller_advise.custom.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -40,6 +39,30 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(CampaignNotFoundException.class)
+    public ErrorResponse handleCampaignNotFoundException(CampaignNotFoundException ex, WebRequest request) {
+        return new ErrorResponse(
+                ex.getMessage(),
+                "CAMPAIGN_NOT_FOUND",
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND,
+                UUID.randomUUID().toString(),
+                null
+        );
+    }
+
+    @ExceptionHandler(CampaignAlreadyExistsException.class)
+    public ErrorResponse handleCampaignAlreadyExistsException(CampaignAlreadyExistsException ex, WebRequest request) {
+        return new ErrorResponse(
+                ex.getMessage(),
+                "CAMPAIGN_ALREADY_EXISTS",
+                LocalDateTime.now(),
+                HttpStatus.CONFLICT,
+                UUID.randomUUID().toString(),
+                null
+        );
+    }
+
     @ExceptionHandler(Exception.class)
     public ErrorResponse handleGenericException(Exception ex, WebRequest request) {
         return new ErrorResponse(
@@ -52,7 +75,6 @@ public class GlobalExceptionHandler {
         );
     }
 
-    // You can also add validation error handling here
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
