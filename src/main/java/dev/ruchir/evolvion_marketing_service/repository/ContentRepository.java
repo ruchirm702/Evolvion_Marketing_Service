@@ -15,15 +15,15 @@ public interface ContentRepository extends JpaRepository<Content, Long> {
     // Find content by title
     Optional<Content> findByTitle(String title);
 
-    // Find all content by content type (e.g., BLOG, VIDEO, WEBINAR)
-    List<Content> findAllByType(ContentType type);
-
-    // Find content based on a partial match of description
-    List<Content> findByDescriptionContaining(String keyword);
-
-    // Find all content created after a specific date
-    List<Content> findAllByCreatedAtAfter(Date date);
-
     // Find content by URL
     Optional<Content> findByUrl(String url);
+
+    // Find content by type
+    List<Content> findByType(ContentType type);
+
+    // Find content by creation date
+    List<Content> findByCreatedAtAfter(Date date);
+
+    // Find content by description containing a keyword
+    List<Content> findByDescriptionContaining(String keyword);
 }
