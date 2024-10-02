@@ -63,6 +63,42 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(ContentNotFoundException.class)
+    public ErrorResponse handleContentNotFoundException(ContentNotFoundException ex, WebRequest request) {
+        return new ErrorResponse(
+                ex.getMessage(),
+                "CONTENT_NOT_FOUND",
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND,
+                UUID.randomUUID().toString(),
+                null
+        );
+    }
+
+    @ExceptionHandler(ContentAlreadyExistsException.class)
+    public ErrorResponse handleContentAlreadyExistsException(ContentAlreadyExistsException ex, WebRequest request) {
+        return new ErrorResponse(
+                ex.getMessage(),
+                "CONTENT_ALREADY_EXISTS",
+                LocalDateTime.now(),
+                HttpStatus.CONFLICT,
+                UUID.randomUUID().toString(),
+                null
+        );
+    }
+
+    @ExceptionHandler(InvalidContentDataException.class)
+    public ErrorResponse handleInvalidContentDataException(InvalidContentDataException ex, WebRequest request) {
+        return new ErrorResponse(
+                ex.getMessage(),
+                "INVALID_CONTENT_DATA",
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST,
+                UUID.randomUUID().toString(),
+                null
+        );
+    }
+
     @ExceptionHandler(Exception.class)
     public ErrorResponse handleGenericException(Exception ex, WebRequest request) {
         return new ErrorResponse(
